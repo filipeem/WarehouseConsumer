@@ -1,0 +1,11 @@
+<h1>Galpões</h1>
+<%= flash['alert'] %>
+
+<% if @warehouses.empty? %>
+  <div class="info">Nenhum galpão disponível</div>
+<% end %>
+
+<% @warehouses.each do |w| %>
+  <%= w["name"] %>
+  <%= w["code"] %>
+<% end %>   
