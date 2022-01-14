@@ -9,7 +9,7 @@ describe 'Visitor view warehouse details' do
                                    .and_return(r1)
     warehouse = File.read(Rails.root.join('spec', 'support', 'api_resources', 'warehouse.json'))
     r2 = Faraday::Response.new(status: 200, response_body: warehouse)
-    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses/')
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses/1')
                                    .and_return(r2)
     # Act
     visit root_path

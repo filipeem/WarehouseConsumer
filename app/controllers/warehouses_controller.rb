@@ -1,4 +1,4 @@
-class WarehouseController < ApplicationController
+class WarehousesController < ApplicationController
   def show
     response = Faraday.get("http://localhost:3000/api/v1/warehouses/#{params[:id]}")
     @warehouse = []

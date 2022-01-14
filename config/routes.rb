@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  get 'warehouse', to: 'warehouse#show'
+  resources :warehouses, only: [:show]
 end
