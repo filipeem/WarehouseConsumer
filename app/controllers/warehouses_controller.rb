@@ -1,12 +1,12 @@
 class WarehousesController < ApplicationController
   def show
-    response = Faraday.get("http://localhost:3000/api/v1/warehouses/#{params[:id]}")
-    @warehouse = []
-    if response.status == 200
-      @warehouse = JSON.parse(response.body)
-    else 
-      flash.now['alert'] = 'Não foi possível carregar dados do galpão'
+    id = params[:id]
+    @warehouse = Warehouse.find(id)
+    if @warehouse.nil?
+      
+      redirect_to root_path
+      flash[:alert] = 'Não foi possível carregar dados do galpão no momento'
     end
-
   end
+
 end

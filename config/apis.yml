@@ -1,0 +1,8 @@
+development: 
+  warehouses_api: http://localhost:3000
+
+test: 
+  warehouses_api: http://localhost:3000
+
+production:
+  warehouses_api: http://apis.galpoes.com.br

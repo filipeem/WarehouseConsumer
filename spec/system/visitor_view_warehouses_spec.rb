@@ -17,18 +17,26 @@ describe 'Visitor view warehouses' do
     expect(page).to have_content 'SSA'
   end
 
-  it 'and theres no warehouse' do
+  it 'and the warehouse does not exist' do
     # Arrange
-    r = Faraday::Response.new(status: 200, response_body: '[]')
+    warehouses = File.read(Rails.root.join('spec', 'support', 'api_resources', 'warehouses.json'))
+    index_response = Faraday::Response.new(status: 200, response_body: warehouses)
     allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses')
-                                   .and_return(r)
+                                   .and_return(index_response)
+
+    show_response = Faraday::Response.new(status: 404, response_body: '{}')
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses/9999')
+                                   .and_return(show_response)
+
 
     # Act
-    visit root_path
+    visit warehouse_path(9999)
 
     # Assert
-    expect(page).to have_content 'Nenhum galpão disponível'
+    expect(current_path).to eq root_path
+    expect(page).to have_content("Não foi possível carregar dados do galpão no momento")
   end
+
 
   it 'and render an error message if API is unavailable' do
     # Arrange
@@ -42,4 +50,26 @@ describe 'Visitor view warehouses' do
     # Assert
     expect(page).to have_content('Não foi possível carregar dados dos galpões')
   end
+
+  it 'and the API is no longer responding' do
+    # Arrange
+    warehouses = File.read(Rails.root.join('spec', 'support', 'api_resources', 'warehouses.json'))
+    index_response = Faraday::Response.new(status: 200, response_body: warehouses)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses')
+                                   .and_return(index_response)
+
+    show_response = Faraday::Response.new(status: 500, response_body: '{}')
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses/1')
+                                   .and_return(show_response)
+
+    # Act
+    visit root_path
+    click_on 'Maceió'
+
+    # Assert
+    expect(current_path).to eq root_path
+    expect(page).to have_content("Não foi possível carregar dados do galpão no momento")
+  end
+
+
 end
