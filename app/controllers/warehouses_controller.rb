@@ -14,7 +14,7 @@ class WarehousesController < ApplicationController
 
   def create
     warehouse_params = params.permit(:name, :code, :description, :postal_code, :address, :city, :state, :total_area, :useful_area)
-   
+    
     @warehouse = Warehouse.save(warehouse_params)
     if @warehouse.nil?
       flash.now[:alert] = 'Não foi possível gravar o galpão'
