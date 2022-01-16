@@ -51,4 +51,25 @@ class Warehouse
 
     return result
   end
+
+  def self.save(w)
+    api_domain = Rails.configuration.apis["warehouses_api"]
+    response = Faraday.post "#{api_domain}/api/v1/warehouses/" do |req|
+                req.headers[:content_type] = 'application/json'
+                req.body = JSON.generate(name: w["name"], code: w["code"], 
+                               description: w["description"], address: w["address"], 
+                               postal_code:w["postal_code"], city: w["city"], state: w["state"],
+                               total_area: w["total_area"], useful_area: w["useful_area"])
+                end
+
+    if response.status == 201
+      warehouse = JSON.parse(response.body)
+    else
+      return nil
+    end
+
+    return warehouse
+  end
+  
+ 
 end

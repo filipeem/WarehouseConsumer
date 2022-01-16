@@ -1,0 +1,11 @@
+{
+  "id": "3",
+  "name":"Porto Alegre",
+  "code":"POA",
+  "description":"Galpão do Aeroporto",
+  "address":"Av.dos Estados",
+  "postal_code":"90050-000",
+  "city":"Porto Alegre",
+  "state":"RS",
+  "total_area":"10000",
+  "useful_area":"8000"}

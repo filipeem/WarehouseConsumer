@@ -62,5 +62,27 @@ describe Warehouse do
       expect(result.postal_code).to eq '57050-000'
       
     end
+    it 'should return nil if warehouse doesn`t exists' do
+      # Arrange
+      
+      response = Faraday::Response.new(status: 404, response_body: '{}')
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses/999')
+                                     .and_return(response)
+      # Act
+      result = Warehouse.find(999)
+
+      # Assert
+      expect(result).to eq nil
+      
+    end
+  end
+
+  context '.save' do
+    it 'should create new warehouse' do
+      
+    end
+    it 'should return nil if warehouse creation fails' do
+      
+    end
   end
 end

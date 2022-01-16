@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <header>
+      <nav>
+        <%= link_to '| Início |', root_path %>
+        <%= link_to '| Cadastrar Galpão |', new_warehouse_path %>
+      </nav>
+    </header>
     <main>
       <%= flash[:notice] %>
       <%= flash[:alert] %>
