@@ -61,8 +61,8 @@ class Warehouse
     response = Faraday.post "#{api_domain}/api/v1/warehouses/" do |req|
                 req.headers[:content_type] = 'application/json'
                 req.body = request
-                end
-    byebug
+                end 
+    
     if response.status == 201
       result = JSON.parse(response.body)
     else
